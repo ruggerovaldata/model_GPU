@@ -132,5 +132,5 @@ def save_model(model,batch_size):
   torch.save(model.state_dict(),model_save_name)
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     print('Model ready')

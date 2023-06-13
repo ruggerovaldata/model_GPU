@@ -6,7 +6,7 @@ import simulator as s
 import argparse 
 import matplotlib.pyplot as plt
 
-parser = argparse.ArgumentParser()
+""" parser = argparse.ArgumentParser()
 
 parser.add_argument('x_size', type=float, help='x_size of the images to be generated')
 parser.add_argument('y_size', type=float, help='y_size of the images to be generated')
@@ -18,9 +18,9 @@ parser.add_argument('train_per',type=float, help='percentage to divide the datas
 parser.add_argument('DM_min', type=float, help='Minimum of the DM')
 parser.add_argument('DM_max', type=float, help='maximum of the DM')
 
-args = parser.parse_args()
+args = parser.parse_args() """
 
-n_tot = args.size 
+#n_tot = args.size 
 
 
 class SimulatedDataset(Dataset):

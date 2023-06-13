@@ -168,5 +168,5 @@ def decoder(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.tensor([0
 
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     print('Simulator implemented')
