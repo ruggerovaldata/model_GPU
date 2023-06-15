@@ -109,8 +109,8 @@ class VariationalAutoEncoder_noswidth(nn.Module):
 
 
   def encode(self,x):
-    h = self.relu(self.img_2hid(x))
-    h = self.relu(self.hid_2hid(h))
+    h1 = self.relu(self.img_2hid(x))
+    h = self.relu(self.hid_2hid(h1))
     mu_params, sigma_params = self.hid_2mu_params(h), self.hid_2sigma_params(h)
     mu_noise, sigma_noise = self.hid_2mu_noise(h), self.hid_2sigma_noise(h)
     return mu_params,sigma_params, mu_noise, sigma_noise
