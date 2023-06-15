@@ -45,5 +45,5 @@ model = train(model, 10, train_dataloader, test_dataloader,optimizer)
 
 print('Finished training')
 
-save_model
+save_model(model, args.batch_size)
 
