@@ -76,12 +76,14 @@ class VariationalAutoEncoder(nn.Module):
     return x_reconstructed_params, x_reconstructed_noise, params
 
 class VariationalAutoEncoder_noswidth(nn.Module):
-  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 250, z_dim_params = 2, z_dim_noise = 250):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 150, h1_dim = 150, z_dim_params = 2, z_dim_noise = 250):
 
     super(VariationalAutoEncoder_noswidth,self).__init__()
     
     #encoder
-    self.img_2hid = nn.Linear(input_dim, h_dim)
+    self.img_2hid = nn.Linear(input_dim, h1_dim)
+
+    self.hid_2hid = nn.Linear(h1_dim,h_dim)
     
     self.hid_2mu_params = nn.Linear(h_dim, z_dim_params)
     self.hid_2sigma_params = nn.Linear(h_dim, z_dim_params)
@@ -108,6 +110,7 @@ class VariationalAutoEncoder_noswidth(nn.Module):
 
   def encode(self,x):
     h = self.relu(self.img_2hid(x))
+    h = self.relu(self.hid_2hid(h))
     mu_params, sigma_params = self.hid_2mu_params(h), self.hid_2sigma_params(h)
     mu_noise, sigma_noise = self.hid_2mu_noise(h), self.hid_2sigma_noise(h)
     return mu_params,sigma_params, mu_noise, sigma_noise
