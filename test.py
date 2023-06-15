@@ -22,7 +22,7 @@ parser.add_argument('epochs', type = int, help='Indicate the number of epochs')
 args = parser.parse_args()
 
 train_dataset, test_dataset, train_dataloader, test_dataloader, t, nu, nu0 = dt.CreateDataset(args.DM_min,args.DM_max, args.nu_i, args.nu_f, 
-                                                    args.size, args.t, args.x_size, args.y_size, args.batch_size, test_flag=False)
+                                                    args.size, args.t, args.x_size, args.y_size, args.batch_size, test_flag=True)
 
 print('Created the dataset')
 
