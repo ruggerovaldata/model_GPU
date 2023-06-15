@@ -11,6 +11,7 @@ DM_CONST = 1e-6 * (e**2) / (8 * pi**2 * epsilon_0 * m_e * c) * parsec
 
 def disp_delay(freq, dm, disp_ind=2.0):
     """Compute the dispersion delay (s) as a function of frequency (MHz) and DM."""
+
     return DM_CONST * dm / (freq**disp_ind)
 
 
@@ -121,7 +122,8 @@ def decoder(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.tensor([0
     #print('DM:', dm)
     # Calculate delay
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
+    nu = nu.to(device)
+    
     delay = disp_delay(nu0, dm[:, None]) - disp_delay(nu, dm[:, None])
     delay = delay.flip(1)
 
