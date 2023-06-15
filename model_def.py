@@ -47,12 +47,13 @@ class VariationalAutoEncoder(nn.Module):
   def decodeparams(self,z):
     dm_pred= z[:,0]
     swidth_pred = z[:,1]
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     dm_pred = 10*dm_pred.view(dm_pred.shape[0])
     #swidth_pred = swidth_pred.view(swidth_pred.shape[0])
     swidth_pred = 1000*torch.abs(swidth_pred)
     #print(swidth_pred)
     width = 0.0000005*torch.ones(len(dm_pred))
-    #width = width.to(device)
+    width = width.to(device)
     out = s.decoder(dm_pred, width,self.nu,self.nu0,self.t,swidth_pred,self.x_size,self.y_size,plot_flag=False)
     return out, [dm_pred,swidth_pred]
   
