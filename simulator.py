@@ -56,7 +56,7 @@ def simulate(dm, width, nu, nu0, t, swidth, x_size, y_size,  noise=torch.tensor(
 
     y = torch.linspace(0,y_size,y_size)
 
-    y_cropping = gaussian(y,y_size/2,swidth[:,None])
+    y_cropping = 0.48*gaussian(y,y_size/2,swidth[:,None])
     y_cropping = y_cropping.view(-1,y_size,1)
 
     #Missing values
