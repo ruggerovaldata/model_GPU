@@ -123,7 +123,8 @@ def decoder(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.tensor([0
     # Calculate delay
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     nu = nu.to(device)
-    
+    t = t.to(device)
+
     delay = disp_delay(nu0, dm[:, None]) - disp_delay(nu, dm[:, None])
     delay = delay.flip(1)
 
