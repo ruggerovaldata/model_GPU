@@ -1,10 +1,7 @@
 import dataset as dt
-from model_def import train, VariationalAutoEncoder
+from model_def import train, VariationalAutoEncoder, save_model
 import argparse 
 import torch 
-
-from datetime import datetime
-
 
 #print(dt_string)
 
@@ -40,10 +37,6 @@ optimizer = torch.optim.Adam(model.parameters(),lr=lr)
 
 model = train(model, 10, train_dataloader, test_dataloader,optimizer)
 
-now = datetime.now()
-dt_string = now.strftime("%d%m %H:%M:%S")
-model_save_name = 'FRBAEGPU '+str(args.batch_size)+dt_string+'.pt'
 
-torch.save(model.state_dict(),model_save_name)
-
+save_model
 
