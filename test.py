@@ -17,6 +17,7 @@ parser.add_argument('size', type=float, help='Size of the dataset')
 parser.add_argument('DM_min', type=float, help='Minimum of the DM')
 parser.add_argument('DM_max', type=float, help='maximum of the DM')
 parser.add_argument('batch_size', type = int, help='Indicate the batch size')
+parser.add_argument('epochs', type = int, help='Indicate the number of epochs')
 
 args = parser.parse_args()
 
@@ -42,7 +43,7 @@ optimizer = torch.optim.Adam(model.parameters(),lr=lr)
 
 model = train(model, 10, train_dataloader, test_dataloader,optimizer)
 
-
+print('Finished training')
 
 save_model
 
