@@ -130,8 +130,8 @@ def save_model(model,batch_size):
 
   print('Saving')
   now = datetime.now()
-  dt_string = now.strftime("%d%m %H:%M:%S")
-  model_save_name = 'FRBAEGPU '+str(batch_size)+dt_string+'.pt'
+  dt_string = now.strftime("%d%m%H:%M")
+  model_save_name = 'FRBAEGPU'+str(batch_size)+dt_string+'.pt'
   torch.save(model.state_dict(),model_save_name)
 
 
