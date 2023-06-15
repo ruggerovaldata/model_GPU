@@ -38,6 +38,7 @@ class VariationalAutoEncoder(nn.Module):
     self.x_size = x_size
     self.y_size = y_size
 
+
   def encode(self,x):
     h = self.relu(self.img_2hid(x))
     mu_params, sigma_params = self.hid_2mu_params(h), self.hid_2sigma_params(h)
