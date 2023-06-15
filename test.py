@@ -1,5 +1,5 @@
 import dataset as dt
-from model_def import train, VariationalAutoEncoder, save_model
+from model_def import train, VariationalAutoEncoder, save_model, VariationalAutoEncoder_noswidth
 import argparse 
 import torch 
 
@@ -28,7 +28,7 @@ print('Created the dataset')
 
 
 input_dim = args.x_size * args.y_size                                   
-model = VariationalAutoEncoder(input_dim, args.x_size, args.y_size,nu, nu0,t)
+model = VariationalAutoEncoder_noswidth(input_dim, args.x_size, args.y_size,nu, nu0,t)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(device)

@@ -75,6 +75,73 @@ class VariationalAutoEncoder(nn.Module):
     x_reconstructed_noise = self.decodenoise(z_reparametrized_noise)
     return x_reconstructed_params, x_reconstructed_noise, params
 
+class VariationalAutoEncoder_noswidth(nn.Module):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 500, z_dim_params = 2, z_dim_noise = 500):
+
+    super(VariationalAutoEncoder,self).__init__()
+    
+    #encoder
+    self.img_2hid = nn.Linear(input_dim, h_dim)
+    
+    self.hid_2mu_params = nn.Linear(h_dim, z_dim_params)
+    self.hid_2sigma_params = nn.Linear(h_dim, z_dim_params)
+
+    self.hid_2mu_noise = nn.Linear(h_dim, z_dim_noise)
+    self.hid_2sigma_noise = nn.Linear(h_dim, z_dim_noise)
+
+    #decoder: 
+    self.zparams_2img = nn.Linear(z_dim_params, input_dim)
+
+    self.hidnoise_2hid = nn.Linear(z_dim_noise,h_dim)
+    self.hid_2img = nn.Linear(h_dim, input_dim)
+
+    self.relu = nn.ReLU()
+
+    #Variables for decoder and forward pass 
+    self.input_dim = input_dim
+    self.nu = nu 
+    self.nu0 = nu0
+    self.t = t
+    self.x_size = x_size
+    self.y_size = y_size
+
+
+  def encode(self,x):
+    h = self.relu(self.img_2hid(x))
+    mu_params, sigma_params = self.hid_2mu_params(h), self.hid_2sigma_params(h)
+    mu_noise, sigma_noise = self.hid_2mu_noise(h), self.hid_2sigma_noise(h)
+    return mu_params,sigma_params, mu_noise, sigma_noise
+  
+  def decodeparams(self,z):
+    dm_pred= z[:,0]
+    swidth_pred = z[:,1]
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    dm_pred = 10*dm_pred.view(dm_pred.shape[0])
+    #swidth_pred = swidth_pred.view(swidth_pred.shape[0])
+    swidth_pred = 1000*torch.abs(swidth_pred)
+    #print(swidth_pred)
+    width = 0.0000005*torch.ones(len(dm_pred))
+    width = width.to(device)
+    out = s.decoder_noswidth(dm_pred, width,self.nu,self.nu0,self.t,swidth_pred,self.x_size,self.y_size,plot_flag=False)
+    return out, [dm_pred,swidth_pred]
+  
+  def decodenoise(self,z):
+    h = self.relu(self.hidnoise_2hid(z))
+    img = self.hid_2img(h)
+    return img.view(-1,self.y_size,self.x_size)
+
+  def forward(self, x):
+    mu_params, logvar_params, mu_noise,logvar_noise = self.encode(x.view(-1,self.input_dim))
+    std_params = 0.5*torch.exp(logvar_params-32)
+    std_noise = 0.5*torch.exp(logvar_noise-32)
+    epsilon_params = std_params.data.new(std_params.size()).normal_()
+    epsilon_noise = std_noise.data.new(std_noise.size()).normal_()
+    z_reparametrized_params = mu_params + std_params * epsilon_params
+    z_reparametrized_noise = mu_noise + std_noise * epsilon_noise
+    x_reconstructed_params, params = self.decodeparams(z_reparametrized_params)
+    x_reconstructed_noise = self.decodenoise(z_reparametrized_noise)
+    return x_reconstructed_params, x_reconstructed_noise, params
+
 def loss_function(x_hat,x,y_size,x_size):
   x_hat = x_hat.view(x_hat.shape[0],y_size,x_size)
   loss = nn.MSELoss()
