@@ -41,7 +41,7 @@ lr = 1e-4
 
 optimizer = torch.optim.Adam(model.parameters(),lr=lr)
 
-model = train(model, 10, train_dataloader, test_dataloader,optimizer)
+model = train(model, args.epochs, train_dataloader, test_dataloader,optimizer)
 
 print('Finished training')
 
