@@ -128,6 +128,7 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
 def save_model(model,batch_size):
   from datetime import datetime
 
+  print('Saving')
   now = datetime.now()
   dt_string = now.strftime("%d%m %H:%M:%S")
   model_save_name = '~/FRBAEGPU '+str(batch_size)+dt_string+'.pt'
