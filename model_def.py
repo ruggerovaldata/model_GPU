@@ -78,7 +78,7 @@ class VariationalAutoEncoder(nn.Module):
 class VariationalAutoEncoder_noswidth(nn.Module):
   def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 500, z_dim_params = 2, z_dim_noise = 500):
 
-    super(VariationalAutoEncoder,self).__init__()
+    super(VariationalAutoEncoder_noswidth,self).__init__()
     
     #encoder
     self.img_2hid = nn.Linear(input_dim, h_dim)
