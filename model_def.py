@@ -168,9 +168,8 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
                 batch_dms_avge = torch.sum(RelativeError(dm_obs,temp[0]))
                 batch_swidth_avge = torch.sum(RelativeError(swidth_obs,temp[1]))
                 loss1 = loss_function(x_hat_params,x, model.y_size, model.x_size)
-                #loss_noise =  loss_function(x-x_hat_params,x_hat_noise, model.y_size, model.x_size)
-                #loss = loss1 + 0.01*loss_noise
-                loss = loss1 
+                loss_noise =  loss_function(x-x_hat_params,x_hat_noise, model.y_size, model.x_size)
+                loss = loss1 + 0.01*loss_noise
                 train_loss+=loss.item()
                 average_dms_error+=batch_dms_avge
                 average_swidth_error+=batch_swidth_avge
