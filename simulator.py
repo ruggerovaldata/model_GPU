@@ -234,7 +234,7 @@ def simulate_noswidth(dm, width, nu, nu0, t,swidth, x_size, y_size,  noise=torch
         data_norm[i] = torch.nn.functional.normalize(image)
         current_snr = torch.mean(data_norm[i])/torch.std(normal_error[i])
         normal_error[i] = normal_error[i]*current_snr/snr
-        data_norm[i] = torch.nn.functional.normalize(data_norm[i]+50*normal_error[i])
+        data_norm[i] = torch.nn.functional.normalize(data_norm[i]+10*normal_error[i])
 
 
     # Plot images if the flag is True
