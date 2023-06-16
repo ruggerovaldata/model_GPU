@@ -309,7 +309,7 @@ def decoder_noswidth(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.
     # Compute FRB values
     frb = gaussian(t[None, None, :], -delay[:, :, None], width[:, None, None])
     
-    frb = frb  + normal_error
+    frb = frb  
 
     data_norm = frb.clone().detach()
 
