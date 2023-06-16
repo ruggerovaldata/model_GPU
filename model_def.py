@@ -76,7 +76,7 @@ class VariationalAutoEncoder(nn.Module):
     return x_reconstructed_params, x_reconstructed_noise, params
 
 class VariationalAutoEncoder_noswidth(nn.Module):
-  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 150, h1_dim = 150, z_dim_params = 2, z_dim_noise = 250):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 100, h1_dim = 100, z_dim_params = 2, z_dim_noise = 500):
 
     super(VariationalAutoEncoder_noswidth,self).__init__()
     
