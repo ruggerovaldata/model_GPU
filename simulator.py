@@ -206,7 +206,7 @@ def simulate_noswidth(dm, width, nu, nu0, t,swidth, x_size, y_size,  noise=torch
     
 
     noise_amp = noise[:,None] * torch.ones(1,x_size)
-    normal_error = noise_amp[:,None]/200*torch.normal(mean=0, std=1, size=(len(noise), y_size,x_size))
+    normal_error = noise_amp[:,None]/200*torch.normal(mean=1, std=1, size=(len(noise), y_size,x_size))
 
     y = torch.linspace(0,y_size,y_size)
 
@@ -224,13 +224,18 @@ def simulate_noswidth(dm, width, nu, nu0, t,swidth, x_size, y_size,  noise=torch
     # Compute FRB values
     frb = gaussian(t[None, None, :], -delay[:, :, None], width[:, None, None])
     
-    frb = 15*(frb + normal_error)
+    frb = (frb + normal_error)
     frb = frb * zeros
     data_norm = frb.clone().detach()
+    snr = 15
 
     for i,image in enumerate(frb): 
         #data_norm[i] = (image - torch.mean(image))/torch.std(image)
         data_norm[i] = torch.nn.functional.normalize(image)
+        current_snr = torch.mean(data_norm[i])/torch.std(normal_error[i])
+        normal_error[i] = normal_error[i]*current_snr/snr
+        data_norm[i] = torch.nn.functional.normalize(data_norm[i]+50*normal_error[i])
+
 
     # Plot images if the flag is True
     if plot_flag:
