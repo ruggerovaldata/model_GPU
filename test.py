@@ -28,7 +28,7 @@ print('Created the dataset')
 
 
 input_dim = args.x_size * args.y_size                                   
-model = VariationalAutoEncoder_noswidth(input_dim, args.x_size, args.y_size,nu, nu0,t)
+model = VariationalAutoEncoder_noswidth(input_dim, args.x_size, args.y_size, nu, nu0,t)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(device)
@@ -37,7 +37,7 @@ model.to(device)
 
 print('Created the model')
 
-lr = 1e-4
+lr = 1e-5
 
 optimizer = torch.optim.Adam(model.parameters(),lr=lr)
 
