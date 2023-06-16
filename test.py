@@ -26,12 +26,20 @@ train_dataset, test_dataset, train_dataloader, test_dataloader, t, nu, nu0 = dt.
 
 print('Created the dataset')
 
+load = True
+
 
 input_dim = args.x_size * args.y_size                                   
 model = VariationalAutoEncoder_noswidth(input_dim, args.x_size, args.y_size, nu, nu0,t)
 
+
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(device)
+
+
+if load: 
+    print('Loading the model')
+    model.load_state_dict(torch.load('FRBAEGPU10160616:25.pt',map_location=torch.device(device)))
 
 model.to(device)
 
