@@ -26,7 +26,7 @@ train_dataset, test_dataset, train_dataloader, test_dataloader, t, nu, nu0 = dt.
 
 print('Created the dataset')
 
-load = True
+load = False
 
 
 input_dim = args.x_size * args.y_size                                   
