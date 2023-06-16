@@ -287,10 +287,7 @@ def decoder_noswidth(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.
     delay = disp_delay(nu0, dm[:, None]) - disp_delay(nu, dm[:, None])
     delay = delay.flip(1)
 
-    
-
     delay = delay.to(device)
-
 
     noise_amp = noise[:,None] * torch.ones(1,x_size)
     normal_error = noise_amp[:,None]/300*torch.normal(mean=0, std=1, size=(len(noise), y_size,x_size))
@@ -313,9 +310,9 @@ def decoder_noswidth(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.
 
     data_norm = frb.clone().detach()
 
-    for i,image in enumerate(frb): 
+    #for i,image in enumerate(frb): 
         #data_norm[i] = (image - torch.mean(image))/torch.std(image)
-        data_norm[i] = torch.nn.functional.normalize(image) 
+        #data_norm[i] = torch.nn.functional.normalize(image) 
 
     # Plot images if the flag is True
     if plot_flag:
