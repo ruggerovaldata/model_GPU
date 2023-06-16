@@ -310,9 +310,9 @@ def decoder_noswidth(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.
 
     data_norm = frb.clone().detach()
 
-    #for i,image in enumerate(frb): 
+    for i,image in enumerate(frb): 
         #data_norm[i] = (image - torch.mean(image))/torch.std(image)
-        #data_norm[i] = torch.nn.functional.normalize(image) 
+        data_norm[i] = torch.nn.functional.normalize(image) 
 
     # Plot images if the flag is True
     if plot_flag:
