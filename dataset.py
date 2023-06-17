@@ -122,6 +122,9 @@ def CreateDataset_noswidth(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, batch
     testing_dataloader = DataLoader(testing_dataset,batch_size=batch_size,shuffle=True)
 
     return training_dataset, testing_dataset, train_dataloader,testing_dataloader, time, nu, nu0
+
+def LoadDataset(file):
+    return torch.load(file)
     
 
 

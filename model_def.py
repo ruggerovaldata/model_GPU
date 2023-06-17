@@ -204,6 +204,14 @@ def save_model(model,batch_size):
   model_save_name = 'FRBAEGPU'+str(batch_size)+dt_string+'.pt'
   torch.save(model.state_dict(),model_save_name)
 
+def save_model_real_noise(model,batch_size):
+  from datetime import datetime
+
+  print('Saving')
+  now = datetime.now()
+  dt_string = now.strftime("%d%m%H:%M")
+  model_save_name = 'REALNOISE'+str(batch_size)+dt_string+'.pt'
+  torch.save(model.state_dict(),model_save_name)
 
 if __name__ == '__main__':
     print('Model ready')
