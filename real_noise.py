@@ -27,8 +27,8 @@ parser.add_argument('epochs', type = int, help='Indicate the number of epochs')
 
 args = parser.parse_args()
 
-test_dataloader = dt.LoadDataset('test_images.pt')
-train_dataloader = dt.LoadDataset('train_images.pt')
+test_dataloader = dt.LoadDataset('/home/rvaldata/test_images.pt')
+train_dataloader = dt.LoadDataset('/home/rvaldata/train_images.pt')
 
 print('Loaded the dataset')
 
