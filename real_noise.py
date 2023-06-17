@@ -50,7 +50,7 @@ model.to(device)
 
 print('Created the model')
 
-lr = 1e-5
+lr = 1e-6
 
 optimizer = torch.optim.Adam(model.parameters(),lr=lr)
 
