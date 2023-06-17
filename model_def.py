@@ -123,7 +123,7 @@ class VariationalAutoEncoder_noswidth(nn.Module):
     #swidth_pred = swidth_pred.view(swidth_pred.shape[0])
     swidth_pred = 1000*torch.abs(swidth_pred)
     #print(swidth_pred)
-    width = 0.0000009*torch.ones(len(dm_pred))
+    width = 0.000001*torch.ones(len(dm_pred))
     width = width.to(device)
     out = s.decoder_noswidth(dm_pred, width,self.nu,self.nu0,self.t,swidth_pred,self.x_size,self.y_size,plot_flag=False)
     return out, [dm_pred,swidth_pred]
