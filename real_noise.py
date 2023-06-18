@@ -40,9 +40,17 @@ time = torch.linspace(-args.t, args.t, args.x_size)
 input_dim = args.x_size * 50                                   
 model = VariationalAutoEncoder_noswidth_RealNoise(input_dim, args.x_size, 50, nu, nu0,time)
 
+load = True 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(device)
+
+if load: 
+    print('Loading the model')
+    model.load_state_dict(torch.load('REALNOISE10180619:03.pt',map_location=torch.device(device)))
+
+
+
 
 
 
