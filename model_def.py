@@ -251,7 +251,8 @@ class VariationalAutoEncoder_noswidth_RealNoise(nn.Module):
     return out_image, [dm_pred,swidth_pred]
   
   def decodenoise(self,z):
-    h = self.relu(self.hidnoise_2hid(z))
+    h1 = self.relu(self.hidnoise_2hid(z))
+    h = self.relu(self.hid_2hid(h1))
     img = self.hid_2img(h)
     return img.view(-1,self.y_size,self.x_size)
 
