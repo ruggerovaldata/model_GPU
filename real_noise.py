@@ -7,7 +7,7 @@ import torch
 import os
 
 
-from model_def import VariationalAutoEncoder_noswidth, train, save_model_real_noise
+from model_def import VariationalAutoEncoder_noswidth_RealNoise, train, save_model_real_noise
 
 #print(dt_string)
 
@@ -37,8 +37,8 @@ nu0 = torch.median(nu)
 
 time = torch.linspace(-args.t, args.t, args.x_size)
 
-input_dim = args.x_size * args.y_size                                   
-model = VariationalAutoEncoder_noswidth(input_dim, args.x_size, args.y_size, nu, nu0,time)
+input_dim = args.x_size * 50                                   
+model = VariationalAutoEncoder_noswidth_RealNoise(input_dim, args.x_size, 50, nu, nu0,time)
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
