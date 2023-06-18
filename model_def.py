@@ -247,6 +247,7 @@ class VariationalAutoEncoder_noswidth_RealNoise(nn.Module):
     width = width.to(device)
     out = s.decoder_noswidth(dm_pred, width,self.nu,self.nu0,self.t,swidth_pred,self.x_size,self.y_size,plot_flag=False)
     out_image = out[:,60:110,:]
+    print(out_image.shape)
     return out_image, [dm_pred,swidth_pred]
   
   def decodenoise(self,z):
