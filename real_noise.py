@@ -47,7 +47,7 @@ print(device)
 
 if load: 
     print('Loading the model')
-    model.load_state_dict(torch.load('REALNOISE10180619:38.pt',map_location=torch.device(device)))
+    model.load_state_dict(torch.load('REALNOISE10180620:15.ptt',map_location=torch.device(device)))
 
 
 
