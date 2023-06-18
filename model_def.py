@@ -76,7 +76,7 @@ class VariationalAutoEncoder(nn.Module):
     return x_reconstructed_params, x_reconstructed_noise, params
 
 class VariationalAutoEncoder_noswidth(nn.Module):
-  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 500, h1_dim = 100, z_dim_params = 2, z_dim_noise = 500):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 150, h1_dim = 100, z_dim_params = 2, z_dim_noise = 1000):
 
     super(VariationalAutoEncoder_noswidth,self).__init__()
     
@@ -123,7 +123,7 @@ class VariationalAutoEncoder_noswidth(nn.Module):
     #swidth_pred = swidth_pred.view(swidth_pred.shape[0])
     swidth_pred = 1000*torch.abs(swidth_pred)
     #print(swidth_pred)
-    width = 0.000001*torch.ones(len(dm_pred))
+    width = 0.00001*torch.ones(len(dm_pred))
     width = width.to(device)
     out = s.decoder_noswidth(dm_pred, width,self.nu,self.nu0,self.t,swidth_pred,self.x_size,self.y_size,plot_flag=False)
     return out, [dm_pred,swidth_pred]
@@ -169,7 +169,7 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
                 batch_swidth_avge = torch.sum(RelativeError(swidth_obs,temp[1]))
                 loss1 = loss_function(x_hat_params,x, model.y_size, model.x_size)
                 loss_noise =  loss_function(x-x_hat_params,x_hat_noise, model.y_size, model.x_size)
-                loss = loss1 + 0.01*loss_noise
+                loss = loss1 + 0.1*loss_noise
                 train_loss+=loss.item()
                 average_dms_error+=batch_dms_avge
                 average_swidth_error+=batch_swidth_avge
