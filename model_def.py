@@ -233,6 +233,7 @@ class VariationalAutoEncoder_noswidth_RealNoise(nn.Module):
 
   def encode(self,x):
     h1 = self.relu(self.img_2hid(x))
+    print(h1.shape)
     h2 = self.relu(self.hid_2hid(h1))
     h = self.relu(self.hid1_2hid2(h2))
     mu_params, sigma_params = self.hid_2mu_params(h), self.hid_2sigma_params(h)
