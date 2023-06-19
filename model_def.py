@@ -196,26 +196,28 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
     return model
 
 class VariationalAutoEncoder_noswidth_RealNoise(nn.Module):
-  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 150, h1_dim = 100, z_dim_params = 2, z_dim_noise = 1000):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 100, h1_dim = 50, h2_dim = 50, z_dim_params = 2, z_dim_noise = 1000):
 
     super(VariationalAutoEncoder_noswidth_RealNoise,self).__init__()
     
     #encoder
     self.img_2hid = nn.Linear(input_dim, h_dim)
 
-    #self.hid_2hid = nn.Linear(h1_dim,h_dim)
+    self.hid_2hid = nn.Linear(h_dim,h1_dim)
+    self.hid1_2hid2 = nn.Linear(h1_dim, h2_dim)
     
-    self.hid_2mu_params = nn.Linear(h_dim, z_dim_params)
-    self.hid_2sigma_params = nn.Linear(h_dim, z_dim_params)
+    self.hid_2mu_params = nn.Linear(h2_dim, z_dim_params)
+    self.hid_2sigma_params = nn.Linear(h2_dim, z_dim_params)
 
-    self.hid_2mu_noise = nn.Linear(h_dim, z_dim_noise)
-    self.hid_2sigma_noise = nn.Linear(h_dim, z_dim_noise)
+    self.hid_2mu_noise = nn.Linear(h2_dim, z_dim_noise)
+    self.hid_2sigma_noise = nn.Linear(h2_dim, z_dim_noise)
 
     #decoder: 
     self.zparams_2img = nn.Linear(z_dim_params, input_dim)
 
-    self.hidnoise_2hid = nn.Linear(z_dim_noise,h1_dim)
-    self.hid_2hid = nn.Linear(h1_dim,h_dim)
+    self.hidnoise_2hid = nn.Linear(z_dim_noise,h2_dim)
+    self.hid_2hid = nn.Linear(h2_dim,h1_dim)
+    self.hid_2hid2 = nn.Linear(h1_dim,h_dim)
     self.hid_2img = nn.Linear(h_dim, input_dim)
 
     self.relu = nn.ReLU()
@@ -230,8 +232,9 @@ class VariationalAutoEncoder_noswidth_RealNoise(nn.Module):
 
 
   def encode(self,x):
-    h = self.relu(self.img_2hid(x))
-    #h = self.relu(self.hid_2hid(h1))
+    h1 = self.relu(self.img_2hid(x))
+    h2 = self.relu(self.hid_2hid(h1))
+    h = self.relu(self.hid_2hid2(h2))
     mu_params, sigma_params = self.hid_2mu_params(h), self.hid_2sigma_params(h)
     mu_noise, sigma_noise = self.hid_2mu_noise(h), self.hid_2sigma_noise(h)
     return mu_params,sigma_params, mu_noise, sigma_noise
@@ -252,7 +255,8 @@ class VariationalAutoEncoder_noswidth_RealNoise(nn.Module):
   
   def decodenoise(self,z):
     h1 = self.relu(self.hidnoise_2hid(z))
-    h = self.relu(self.hid_2hid(h1))
+    h2 = self.relu(self.hid_2hid2(h1))
+    h = self.relu(self.hid_2hid(h2))
     img = self.hid_2img(h)
     return img.view(-1,self.y_size,self.x_size)
 
