@@ -2,6 +2,7 @@ import torch
 from torch import nn
 
 import simulator as s
+import matplotlib.pyplot as plt
 
 
 def RelativeError(true, pred):
@@ -196,7 +197,7 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
     return model
 
 class VariationalAutoEncoder_noswidth_RealNoise(nn.Module):
-  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 100, h1_dim = 50, h2_dim = 50, z_dim_params = 2, z_dim_noise = 1000):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 50, h1_dim = 50, h2_dim = 50, z_dim_params = 2, z_dim_noise = 1000):
 
     super(VariationalAutoEncoder_noswidth_RealNoise,self).__init__()
     
@@ -281,6 +282,7 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     for epoch in range(0,epochs+1):
         if epoch >0:
+
             model.train()
             train_loss=0
             average_dms_error = 0
@@ -291,6 +293,9 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
                 swidth_obs = swidth_obs.to(device)
                 x = x.to(device)
                 x_hat_params, x_hat_noise, temp = model(x.view(x.shape[0],model.x_size*model.y_size))
+                if epoch%5==0:
+                  plt.imshow(x_hat_params[0]+x_hat_noise[0],aspect='auto')
+                  plt.show()
                 batch_dms_avge = torch.sum(RelativeError(dm_obs,temp[0]))
                 batch_swidth_avge = torch.sum(RelativeError(swidth_obs,temp[1]))
                 loss1 = loss_function(x_hat_params,x, model.y_size, model.x_size)
