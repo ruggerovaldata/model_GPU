@@ -248,8 +248,9 @@ def simulate_noswidth(dm, width, nu, nu0, t,swidth, x_size, y_size,  noise=torch
     
     return data_norm
 
-""" def decoder_noswidth(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.tensor([0]),  plot_flag=True):
-    Simulate FRBs based on input parameters.
+def decoder_noswidth(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.tensor([0]),  plot_flag=True):
+    """
+        Simulate FRBs based on input parameters.
 
     Args:
     dm (torch.tensor): Tensor containing DM values.
@@ -261,6 +262,8 @@ def simulate_noswidth(dm, width, nu, nu0, t,swidth, x_size, y_size,  noise=torch
 
     Returns:
     frb (torch.tensor): Tensor containing the computed FRB values.
+    """
+
 
     # Check input types
     assert isinstance(dm, torch.Tensor), "dm must be a torch.Tensor"
@@ -323,8 +326,8 @@ def simulate_noswidth(dm, width, nu, nu0, t,swidth, x_size, y_size,  noise=torch
        
     
     return data_norm
- """
 
+'''
 def decoder_noswidth(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.tensor([0]),  plot_flag=True):
     """
     Simulate FRBs based on input parameters.
@@ -401,6 +404,8 @@ def decoder_noswidth(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.
        
     
     return data_norm
+
+'''
 
 
 
