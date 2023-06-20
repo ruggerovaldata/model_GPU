@@ -294,7 +294,8 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
                 x = x.to(device)
                 x_hat_params, x_hat_noise, temp = model(x.view(x.shape[0],model.x_size*model.y_size))
                 if epoch%5==0:
-                  plt.imshow(x_hat_params[0]+x_hat_noise[0],aspect='auto')
+                  image = x_hat_params[0]+x_hat_noise[0]
+                  plt.imshow((image).detach().numpy(),aspect='auto')
                   plt.show()
                 batch_dms_avge = torch.sum(RelativeError(dm_obs,temp[0]))
                 batch_swidth_avge = torch.sum(RelativeError(swidth_obs,temp[1]))
