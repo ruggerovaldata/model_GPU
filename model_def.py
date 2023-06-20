@@ -209,7 +209,6 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
                 dm_obs = dm_obs.to(device)
                 swidth_obs = swidth_obs.to(device)
                 x = x.to(device)
-                print(x.shape)
                 x_hat_params, x_hat_noise, temp = model(x.view(x.shape[0],model.x_size*model.y_size))
                 batch_dms_avge = torch.sum(RelativeError(dm_obs,temp[0]))
                 batch_swidth_avge = torch.sum(RelativeError(swidth_obs,temp[1]))
