@@ -7,7 +7,7 @@ import torch
 import os
 
 
-from model_def import VariationalAutoEncoder_noswidth_RealNoise, train, save_model_real_noise
+from model_def import VariationalAutoEncoder_noswidth, train, save_model_real_noise
 
 #print(dt_string)
 
