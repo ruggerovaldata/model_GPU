@@ -28,9 +28,11 @@ parser.add_argument('epochs', type = int, help='Indicate the number of epochs')
 args = parser.parse_args()
 
 if os.path.exists('/home/rvaldata/test_images.pt'):
+    print('Run on Snellius')
     test_dataloader = dt.LoadDataset('/home/rvaldata/test_images.pt')
     train_dataloader = dt.LoadDataset('/home/rvaldata/train_images.pt')
 else:
+    print('Run Locally')
     test_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/test_images.pt')
     train_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/train_images.pt')
     test_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/test_dataset.pt')
