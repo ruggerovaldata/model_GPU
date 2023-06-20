@@ -35,7 +35,7 @@ print('Loaded the dataset')
 nu = torch.linspace(args.nu_i, args.nu_f, args.y_size)
 nu0 = torch.median(nu)
 
-time = torch.linspace(-args.t, args.t, args.x_size)
+time = torch.linspace(-0.1, 0.08, args.x_size)
 
 input_dim = args.x_size * args.y_size                                  
 model = VariationalAutoEncoder_noswidth_RealNoise(input_dim, args.x_size, args.y_size, nu, nu0,time)
