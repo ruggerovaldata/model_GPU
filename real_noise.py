@@ -49,16 +49,11 @@ if load:
     print('Loading the model')
     model.load_state_dict(torch.load('REALNOISE10180620:15.pt',map_location=torch.device(device)))
 
-
-
-
-
-
 model.to(device)
 
 print('Created the model')
 
-lr = 1e-3
+lr = 1e-2
 
 optimizer = torch.optim.Adam(model.parameters(),lr=lr)
 
