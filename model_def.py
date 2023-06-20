@@ -152,7 +152,7 @@ def loss_function(x_hat,x,y_size,x_size):
   MSE = loss(x_hat,x)
   return MSE
 
-def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
+""" def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     for epoch in range(0,epochs+1):
         if epoch >0:
@@ -171,6 +171,50 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
                 loss1 = loss_function(x_hat_params,x, model.y_size, model.x_size)
                 loss_noise =  loss_function(x-x_hat_params,x_hat_noise, model.y_size, model.x_size)
                 loss = loss1 + 0.01*loss_noise
+                train_loss+=loss.item()
+                average_dms_error+=batch_dms_avge
+                average_swidth_error+=batch_swidth_avge
+                #Backward
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
+
+            print('Average DMs error in epoch prediction: {:.4f} '.format(average_dms_error/len(train_dataloader)))
+            print('Average SWIDTH error in epoch prediction: {:.4f} '.format(average_swidth_error/len(train_dataloader)))
+            print(f'===> Epoch {epoch} Average loss: {train_loss / len(train_dataloader):.4f}')
+    
+            with torch.no_grad():
+                model.eval()
+                test_loss = 0
+                for x,_, _ in testing_dataloader:
+                    x = x.to(device)
+                    #Forward 
+                    x_hat_params, x_hat_noise, temp = model(x.view(x.shape[0],model.x_size*model.y_size))
+                    test_loss1 = loss_function(x_hat_params,x, model.y_size, model.x_size)
+                    test_loss+=test_loss1+loss_function(x-x_hat_params,x_hat_noise, model.y_size, model.x_size)
+                print(f'===>Test loss: {(test_loss-test_loss1):.4f}')
+            
+    return model """
+
+def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    for epoch in range(0,epochs+1):
+        if epoch >0:
+            model.train()
+            train_loss=0
+            average_dms_error = 0
+            average_swidth_error = 0 
+            for x,dm_obs,swidth_obs in train_dataloader:
+                #Forward pass
+                dm_obs = dm_obs.to(device)
+                swidth_obs = swidth_obs.to(device)
+                x = x.to(device)
+                x_hat_params, x_hat_noise, temp = model(x.view(x.shape[0],model.x_size*model.y_size))
+                batch_dms_avge = torch.sum(RelativeError(dm_obs,temp[0]))
+                batch_swidth_avge = torch.sum(RelativeError(swidth_obs,temp[1]))
+                loss1 = loss_function(x_hat_params,x, model.y_size, model.x_size)
+                loss_noise =  loss_function(x-x_hat_params,x_hat_noise, model.y_size, model.x_size)
+                loss = loss1 + 0.0001*loss_noise
                 train_loss+=loss.item()
                 average_dms_error+=batch_dms_avge
                 average_swidth_error+=batch_swidth_avge

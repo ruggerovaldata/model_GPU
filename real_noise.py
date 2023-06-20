@@ -33,10 +33,10 @@ if os.path.exists('/home/rvaldata/test_images.pt'):
     train_dataloader = dt.LoadDataset('/home/rvaldata/train_images.pt')
 else:
     print('Run Locally')
-    test_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/test_images.pt')
-    train_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/train_images.pt')
-    test_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/test_dataset.pt')
-    train_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/train_dataset.pt')
+    test_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_test_images.pt')
+    train_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_train_images.pt')
+    test_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_test_dataset.pt')
+    train_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_train_dataset.pt')
 
 print('Loaded the dataset')
 
