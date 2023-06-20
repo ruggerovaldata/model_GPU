@@ -197,7 +197,7 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
     return model
 
 class VariationalAutoEncoder_noswidth_RealNoise(nn.Module):
-  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 50, h1_dim = 50, h2_dim = 50, z_dim_params = 2, z_dim_noise = 1000):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 100, h1_dim = 50, h2_dim = 50, z_dim_params = 2, z_dim_noise = 1000):
 
     super(VariationalAutoEncoder_noswidth_RealNoise,self).__init__()
     
