@@ -31,8 +31,8 @@ args = parser.parse_args()
 
 if os.path.exists('/home/rvaldata/big_noise_test_images.pt'):
     print('Run on Snellius')
-    test_dataloader = dt.LoadDataset('/home/rvaldata/test_images.pt')
-    train_dataloader = dt.LoadDataset('/home/rvaldata/train_images.pt')
+    test_dataloader = dt.LoadDataset('/home/rvaldata/big_noise_test_images.pt')
+    train_dataloader = dt.LoadDataset('/home/rvaldata/big_noise_train_images.pt')
 else:
     print('Run Locally')
     test_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_test_images.pt')
