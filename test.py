@@ -26,7 +26,7 @@ train_dataset, test_dataset, train_dataloader, test_dataloader, t, nu, nu0 = dt.
 
 print('Created the dataset')
 
-load = False
+load = True
 
 
 input_dim = args.x_size * args.y_size                                   
@@ -39,7 +39,7 @@ print(device)
 
 if load: 
     print('Loading the model')
-    model.load_state_dict(torch.load('FRBAEGPU25160619:37.pt',map_location=torch.device(device)))
+    model.load_state_dict(torch.load('FRBAEGPU1016061904.pt',map_location=torch.device(device)))
 
 model.to(device)
 
