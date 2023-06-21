@@ -86,8 +86,8 @@ def CreateDataset_noswidth(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, batch
     nu = torch.linspace(nu_i, nu_f, y_size)
     nu0 = torch.median(nu)
 
-    #time = torch.linspace(-t, t, x_size)
-    time = torch.linspace(-0.1, 0.08, x_size)
+    time = torch.linspace(-t, t, x_size)
+    #time = torch.linspace(-0.1, 0.08, x_size)
     n_training = int((N *70)/100)
     n_test = int((N*30)/100)
 
