@@ -22,6 +22,7 @@ parser.add_argument('t', type=float, help='Time from the central value of time')
 parser.add_argument('size', type=float, help='Size of the dataset')
 parser.add_argument('DM_min', type=float, help='Minimum of the DM')
 parser.add_argument('DM_max', type=float, help='maximum of the DM')
+parser.add_argument('width', type = float, help='Indicate the width of the gaussian')
 parser.add_argument('batch_size', type = int, help='Indicate the batch size')
 parser.add_argument('epochs', type = int, help='Indicate the number of epochs')
 
@@ -51,7 +52,7 @@ nu0 = torch.median(nu)
 time = torch.linspace(-0.1, 0.2, args.x_size)
 
 input_dim = args.x_size * args.y_size                                  
-model = VariationalAutoEncoder_noswidth(input_dim, args.x_size, args.y_size, nu, nu0,time)
+model = VariationalAutoEncoder_noswidth(input_dim, args.x_size, args.y_size, nu, nu0,time,args.width)
 
 load = False
 
