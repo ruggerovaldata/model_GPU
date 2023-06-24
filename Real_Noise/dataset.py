@@ -39,7 +39,7 @@ def rand_interv(a,b,n):
   u = torch.rand(n)
   return (a-b)*u+b 
 
-def CreateDataset(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, batch_size, noise = 7, test_flag=False):
+def CreateDataset(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, width, batch_size, noise = 7, test_flag=False):
 
     nu = torch.linspace(nu_i, nu_f, y_size)
     nu0 = torch.median(nu)
@@ -51,14 +51,14 @@ def CreateDataset(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, batch_size, no
     dms_train = rand_interv(DM_min, DM_max, n_training)
     noises_train = rand_interv(3,8, n_training)
     swidth_train = rand_interv(4000,5000,n_training)
-    width_train = 0.0000005*torch.ones(n_training)
+    width_train = width*torch.ones(n_training)
 
     train_images = s.simulate(dms_train,width_train,nu,nu0,time,swidth_train, x_size, y_size, noises_train ,plot_flag=False)
 
     dms_test = rand_interv(DM_min, DM_max, n_test)
     noises_test = rand_interv(3,8, n_test)
     swidth_test = rand_interv(4000,5000,n_test)
-    width_test = 0.0000005*torch.ones(n_test)
+    width_test = width*torch.ones(n_test)
 
     test_images = s.simulate(dms_test,width_test,nu,nu0,time, swidth_test,x_size, y_size, noises_test, plot_flag=False)
 
@@ -75,7 +75,7 @@ def CreateDataset(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, batch_size, no
             print(torch.max(val[0]),torch.std(val[0]))
             plt.imshow(val[0].detach().numpy(),aspect='auto')
             plt.show()
-
+    
     train_dataloader = DataLoader(training_dataset,batch_size=batch_size,shuffle=True)
     testing_dataloader = DataLoader(testing_dataset,batch_size=batch_size,shuffle=True)
 
