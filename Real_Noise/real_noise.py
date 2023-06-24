@@ -30,7 +30,7 @@ args = parser.parse_args()
 
 
 
-if os.path.exists('/home/rvaldata/big_noise_test_images.pt'):
+""" if os.path.exists('/home/rvaldata/big_noise_test_images.pt'):
     print('Run on Snellius')
     test_dataloader = dt.LoadDataset('/home/rvaldata/test_images_final.pt')
     train_dataloader = dt.LoadDataset('/home/rvaldata/train_images_final.pt')
@@ -39,12 +39,14 @@ else:
     test_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_test_images.pt')
     train_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_train_images.pt')
     test_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_test_dataset.pt')
-    train_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_train_dataset.pt') 
+    train_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_train_dataset.pt')  """
 
 print('Loaded the dataset')
 
-""" train_dataset, test_dataset, train_dataloader, test_dataloader, t, nu, nu0 = dt.CreateDataset_noswidth(args.DM_min,args.DM_max, args.nu_i, args.nu_f, 
-                                                    args.size, args.t, args.x_size, args.y_size, args.batch_size, test_flag=True ) """
+train_dataset, test_dataset, train_dataloader, test_dataloader, t, nu, nu0 = dt.CreateDataset_noswidth(args.DM_min,args.DM_max, args.nu_i, args.nu_f, 
+                                                    args.size, args.t, args.x_size, args.y_size, args.batch_size, test_flag=True )
+
+print('Created the dataset')
 
 nu = torch.linspace(args.nu_i, args.nu_f, args.y_size)
 nu0 = torch.median(nu)
