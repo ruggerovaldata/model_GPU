@@ -40,13 +40,13 @@ print(device)
 
 if load: 
     print('Loading the model')
-    model.load_state_dict(torch.load('FRBAEGPU10240612:15.pt',map_location=torch.device(device)))
+    model.load_state_dict(torch.load('FRBAEGPU10240613:35.pt',map_location=torch.device(device)))
 
 model.to(device)
 
 print('Created the model')
 
-lr = 1e-5
+lr = 1e-4
 
 optimizer = torch.optim.Adam(model.parameters(),lr=lr)
 
