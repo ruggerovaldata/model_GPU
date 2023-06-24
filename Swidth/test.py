@@ -31,7 +31,7 @@ load = False
 
 
 input_dim = args.x_size * args.y_size                                   
-model = VariationalAutoEncoder(input_dim, args.x_size, args.y_size, nu, nu0,t)
+model = VariationalAutoEncoder(input_dim, args.x_size, args.y_size, nu, nu0,t,args.width)
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
