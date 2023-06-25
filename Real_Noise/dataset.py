@@ -81,7 +81,7 @@ def CreateDataset(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, width, batch_s
 
     return training_dataset, testing_dataset, train_dataloader,testing_dataloader, time, nu, nu0
 
-def CreateDataset_noswidth(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, batch_size,width, noise = 7, test_flag=False):
+def CreateDataset_noswidth(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, width,batch_size, noise = 7, test_flag=False):
 
     nu = torch.linspace(nu_i, nu_f, y_size)
     nu0 = torch.median(nu)
