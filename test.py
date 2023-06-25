@@ -16,7 +16,7 @@ parser.add_argument('t', type=float, help='Time from the central value of time')
 parser.add_argument('size', type=float, help='Size of the dataset')
 parser.add_argument('DM_min', type=float, help='Minimum of the DM')
 parser.add_argument('DM_max', type=float, help='maximum of the DM')
-parser.add_argument('Width', type = float, help='Indicate the width of the gaussians')
+parser.add_argument('width', type = float, help='Indicate the width of the gaussians')
 parser.add_argument('batch_size', type = int, help='Indicate the batch size')
 parser.add_argument('epochs', type = int, help='Indicate the number of epochs')
 
