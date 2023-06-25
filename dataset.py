@@ -81,7 +81,7 @@ def CreateDataset(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, batch_size, no
 
     return training_dataset, testing_dataset, train_dataloader,testing_dataloader, time, nu, nu0
 
-def CreateDataset_noswidth(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, width, batch_size, noise = 7, test_flag=False):
+def CreateDataset_noswidth(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, batch_size, noise = 7, test_flag=False):
 
     nu = torch.linspace(nu_i, nu_f, y_size)
     nu0 = torch.median(nu)
@@ -94,14 +94,14 @@ def CreateDataset_noswidth(DM_min,DM_max, nu_i,nu_f, N, t, x_size, y_size, width
     dms_train = rand_interv(DM_min, DM_max, n_training)
     noises_train = rand_interv(3,8, n_training)
     swidth_train = rand_interv(4000,5000,n_training)
-    width_train = width*torch.ones(n_training)
+    width_train = 0.000001*torch.ones(n_training)
 
     train_images = s.simulate_noswidth(dms_train,width_train,nu,nu0,time,swidth_train, x_size, y_size, noises_train ,plot_flag=False)
 
     dms_test = rand_interv(DM_min, DM_max, n_test)
     noises_test = rand_interv(3,8, n_test)
     swidth_test = rand_interv(4000,5000,n_test)
-    width_test = width*torch.ones(n_test)
+    width_test = 0.000001*torch.ones(n_test)
 
     test_images = s.simulate_noswidth(dms_test,width_test,nu,nu0,time, swidth_test,x_size, y_size, noises_test, plot_flag=False)
 
