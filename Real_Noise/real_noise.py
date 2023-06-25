@@ -30,21 +30,21 @@ args = parser.parse_args()
 
 
 
-""" if os.path.exists('/home/rvaldata/big_noise_test_images.pt'):
+if os.path.exists('/home/rvaldata/test_images_rn_small.pt'):
     print('Run on Snellius')
-    test_dataloader = dt.LoadDataset('/home/rvaldata/test_images_final.pt')
-    train_dataloader = dt.LoadDataset('/home/rvaldata/train_images_final.pt')
+    test_dataloader = dt.LoadDataset('/home/rvaldata/test_images_rn_final.pt')
+    train_dataloader = dt.LoadDataset('/home/rvaldata/train_images_rn_final.pt')
 else:
     print('Run Locally')
-    test_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_test_images.pt')
-    train_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_train_images.pt')
-    test_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_test_dataset.pt')
-    train_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/2000_train_dataset.pt')  """
+    test_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/test_images_rn_small.pt')
+    train_dataloader = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/train_images_rn_small.pt')
+    test_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/test_dataset_rn_small.pt')
+    train_dataset = dt.LoadDataset('/Users/ruggero/Desktop/GitModels/CombinedModels/train_dataset_rn_small.pt')
 
 print('Loaded the dataset')
 
-train_dataset, test_dataset, train_dataloader, test_dataloader, t, nu, nu0 = dt.CreateDataset_noswidth(args.DM_min,args.DM_max, args.nu_i, args.nu_f, 
-                                                    args.size, args.t, args.x_size, args.y_size, args.width, args.batch_size, test_flag=True )
+""" train_dataset, test_dataset, train_dataloader, test_dataloader, t, nu, nu0 = dt.CreateDataset_noswidth(args.DM_min,args.DM_max, args.nu_i, args.nu_f, 
+                                                    args.size, args.t, args.x_size, args.y_size, args.width, args.batch_size, test_flag=True ) """
 
 print('Created the dataset')
 
