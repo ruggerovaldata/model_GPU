@@ -78,7 +78,7 @@ class VariationalAutoEncoder(nn.Module):
 
 class VariationalAutoEncoder_noswidth(nn.Module):
   #def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 150, h1_dim = 100, z_dim_params = 2, z_dim_noise = 1000):
-  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 500, h1_dim = 100, z_dim_params = 2, z_dim_noise = 500):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, width, h_dim = 500, h1_dim = 100, z_dim_params = 2, z_dim_noise = 500):
 
     super(VariationalAutoEncoder_noswidth,self).__init__()
     
@@ -108,7 +108,7 @@ class VariationalAutoEncoder_noswidth(nn.Module):
     self.t = t
     self.x_size = x_size
     self.y_size = y_size
-
+    self.width = width
 
   def encode(self,x):
     h = self.relu(self.img_2hid(x))
@@ -125,7 +125,7 @@ class VariationalAutoEncoder_noswidth(nn.Module):
     #swidth_pred = swidth_pred.view(swidth_pred.shape[0])
     swidth_pred = 1000*torch.abs(swidth_pred)
     #print(swidth_pred)
-    width = 0.000001*torch.ones(len(dm_pred))
+    width = self.width*torch.ones(len(dm_pred))
     width = width.to(device)
     out = s.decoder_noswidth(dm_pred, width,self.nu,self.nu0,self.t,swidth_pred,self.x_size,self.y_size,plot_flag=False)
     return out, [dm_pred,swidth_pred]
