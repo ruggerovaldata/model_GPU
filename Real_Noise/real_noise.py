@@ -44,7 +44,7 @@ else:
 print('Loaded the dataset')
 
 train_dataset, test_dataset, train_dataloader, test_dataloader, t, nu, nu0 = dt.CreateDataset_noswidth(args.DM_min,args.DM_max, args.nu_i, args.nu_f, 
-                                                    args.size, args.t, args.x_size, args.y_size, args.batch_size, test_flag=True )
+                                                    args.size, args.t, args.x_size, args.y_size, args.width, args.batch_size, test_flag=True )
 
 print('Created the dataset')
 
