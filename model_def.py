@@ -10,7 +10,7 @@ def RelativeError(true, pred):
 
 
 class VariationalAutoEncoder(nn.Module):
-  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 500, z_dim_params = 2, z_dim_noise = 500):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 500, z_dim_params = 2, z_dim_noise = 4):
 
     super(VariationalAutoEncoder,self).__init__()
     
