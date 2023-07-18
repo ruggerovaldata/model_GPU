@@ -74,7 +74,7 @@ class VariationalAutoEncoder(nn.Module):
     z_reparametrized_noise = mu_noise + std_noise * epsilon_noise
     x_reconstructed_params, params = self.decodeparams(z_reparametrized_params)
     x_reconstructed_noise = self.decodenoise(z_reparametrized_noise)
-    return x_reconstructed_params, x_reconstructed_noise, params
+    return x_reconstructed_params, x_reconstructed_noise, mu_params, logvar_params, mu_noise, logvar_noise, params
 
 class VariationalAutoEncoder_noswidth(nn.Module):
   #def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 150, h1_dim = 100, z_dim_params = 2, z_dim_noise = 1000):
@@ -147,11 +147,12 @@ class VariationalAutoEncoder_noswidth(nn.Module):
     x_reconstructed_noise = self.decodenoise(z_reparametrized_noise)
     return x_reconstructed_params, x_reconstructed_noise, params
 
-def loss_function(x_hat,x,y_size,x_size):
+def loss_function(x_hat,x,y_size,x_size,mu,logvar):
   x_hat = x_hat.view(x_hat.shape[0],y_size,x_size)
   loss = nn.MSELoss()
   MSE = loss(x_hat,x)
-  return MSE
+  KLD = 0.5*torch.sum(logvar.exp()-logvar-1+mu.pow(2))
+  return MSE+KLD
 
 """ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -210,11 +211,11 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
                 dm_obs = dm_obs.to(device)
                 swidth_obs = swidth_obs.to(device)
                 x = x.to(device)
-                x_hat_params, x_hat_noise, temp = model(x.view(x.shape[0],model.x_size*model.y_size))
+                x_hat_params, x_hat_noise,mu_params,logvar_params,mu_noise,logvar_noise, temp = model(x.view(x.shape[0],model.x_size*model.y_size))
                 batch_dms_avge = torch.sum(RelativeError(dm_obs,temp[0]))
                 batch_swidth_avge = torch.sum(RelativeError(swidth_obs,temp[1]))
-                loss1 = loss_function(x_hat_params,x, model.y_size, model.x_size)
-                loss_noise =  loss_function(x-x_hat_params,x_hat_noise, model.y_size, model.x_size)
+                loss1 = loss_function(x_hat_params,x, model.y_size, model.x_size,mu_params,logvar_params)
+                loss_noise =  loss_function(x-x_hat_params,x_hat_noise, model.y_size, model.x_size,mu_noise,logvar_noise)
                 loss = loss1 + 0.0001*loss_noise
                 train_loss+=loss.item()
                 average_dms_error+=batch_dms_avge
