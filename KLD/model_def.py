@@ -78,7 +78,7 @@ class VariationalAutoEncoder(nn.Module):
 
 class VariationalAutoEncoder_noswidth(nn.Module):
   #def __init__(self,input_dim,x_size,y_size, nu, nu0,t, h_dim = 150, h1_dim = 100, z_dim_params = 2, z_dim_noise = 1000):
-  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, width, h_dim = 500, h1_dim = 100, z_dim_params = 2, z_dim_noise = 500):
+  def __init__(self,input_dim,x_size,y_size, nu, nu0,t, width, h_dim = 500, h1_dim = 100, z_dim_params = 2, z_dim_noise = 10):
 
     super(VariationalAutoEncoder_noswidth,self).__init__()
     
