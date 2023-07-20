@@ -151,8 +151,8 @@ def loss_function(x_hat,x,y_size,x_size,mu,logvar):
   x_hat = x_hat.view(x_hat.shape[0],y_size,x_size)
   loss = nn.MSELoss()
   MSE = loss(x_hat,x)
-  KLD = 0.5*torch.sum(logvar.exp()-logvar-1+mu.pow(2))
-  return MSE+KLD
+  #KLD = 0.5*torch.sum(logvar.exp()-logvar-1+mu.pow(2))
+  return MSE#+KLD
 
 """ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
