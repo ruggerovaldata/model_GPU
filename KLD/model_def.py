@@ -235,7 +235,7 @@ def train(model, epochs, train_dataloader, testing_dataloader, optimizer):
                 for x,_, _ in testing_dataloader:
                     x = x.to(device)
                     #Forward 
-                    x_hat_params, x_hat_noise, temp = model(x.view(x.shape[0],model.x_size*model.y_size))
+                    x_hat_params, x_hat_noise,mu_params,logvar_params,mu_noise,logvar_noise, temp = model(x.view(x.shape[0],model.x_size*model.y_size))
                     test_loss1 = loss_function(x_hat_params,x, model.y_size, model.x_size)
                     test_loss+=test_loss1+loss_function(x-x_hat_params,x_hat_noise, model.y_size, model.x_size)
                 print(f'===>Test loss: {(test_loss-test_loss1):.4f}')
