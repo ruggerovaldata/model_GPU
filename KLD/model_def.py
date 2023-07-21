@@ -145,7 +145,7 @@ class VariationalAutoEncoder_noswidth(nn.Module):
     z_reparametrized_noise = mu_noise + std_noise * epsilon_noise
     x_reconstructed_params, params = self.decodeparams(z_reparametrized_params)
     x_reconstructed_noise = self.decodenoise(z_reparametrized_noise)
-    return x_reconstructed_params, x_reconstructed_noise, params
+    return x_reconstructed_params, x_reconstructed_noise, mu_params,logvar_params,mu_noise, logvar_noise, params
 
 def loss_function(x_hat,x,y_size,x_size,mu,logvar):
   x_hat = x_hat.view(x_hat.shape[0],y_size,x_size)
