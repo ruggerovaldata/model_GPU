@@ -39,7 +39,7 @@ print(device)
 
 if load: 
     print('Loading the model')
-    model.load_state_dict(torch.load('FRBAEGPU10300718:14.pt',map_location=torch.device(device)))
+    model.load_state_dict(torch.load('FRBAEGPU10300720:07.pt',map_location=torch.device(device)))
 
 model.to(device)
 
