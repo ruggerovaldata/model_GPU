@@ -225,7 +225,7 @@ def simulate_noswidth(dm, width, nu, nu0, t,swidth, x_size, y_size,  noise=torch
     frb = gaussian(t[None, None, :], -delay[:, :, None], width[:, None, None])
     
     #frb = frb
-    frb = frb * zeros + normal_error
+    frb = (frb+ normal_error) * zeros 
     data_norm = frb.clone().detach()
     snr = 1
 
@@ -246,7 +246,7 @@ def simulate_noswidth(dm, width, nu, nu0, t,swidth, x_size, y_size,  noise=torch
             plt.close()
        
     
-    return data_norm
+    return data_norm * zeros
 
 def decoder_noswidth(dm, width, nu, nu0, t, swidth,x_size, y_size,  noise=torch.tensor([0]),  plot_flag=True):
     """
