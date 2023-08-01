@@ -206,7 +206,7 @@ def simulate_noswidth(dm, width, nu, nu0, t,swidth, x_size, y_size,  noise=torch
     
 
     noise_amp = noise[:,None] * torch.ones(1,x_size)
-    normal_error = noise_amp[:,None]*torch.normal(mean=1, std=1, size=(len(noise), y_size,x_size))
+    normal_error = noise_amp[:,None]/200*torch.normal(mean=1, std=1, size=(len(noise), y_size,x_size))
 
     y = torch.linspace(0,y_size,y_size)
 
